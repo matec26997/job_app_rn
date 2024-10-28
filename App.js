@@ -10,6 +10,8 @@ import ConnectionContext from "./helpers/ConnectionContext";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
+import {useCameraPermissions} from "expo-camera";
+
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,
@@ -52,6 +54,9 @@ async function registerForPushNotificationsAsync(){
 const {Navigator, Screen} = createBottomTabNavigator()
 
 export default function App() {
+
+    const [permission, requestPermissions] = useCameraPermissions()
+
     const currToken = useRef('')
     const channels = useRef([])
     const [notification, setNotification] = useState(undefined)
@@ -91,6 +96,11 @@ export default function App() {
             responseListener.current && Notifications.removeNotificationSubscription(responseListener.current)
         }
     },[])
+    useEffect(async () => {
+        while(!permission){
+            await requestPermissions()
+        }
+    }, [])
   return (
       <ConnectionContext.Provider value={{connection, applicants, setApplicants}}>
           <NavigationContainer>
