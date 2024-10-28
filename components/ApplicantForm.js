@@ -199,19 +199,17 @@ export default function ApplicantForm({formHeader, user}){
                     required: true,
                 }}
                 render={({field:{onChange, onBlur, value}}) => (
-                    (
-                        <>
-                            <TextInput
-                                style={styles.input}
-                                value={value}
-                                onChangeText={onChange}
-                                onBlur={onBlur}
-                                inputMode='text'
-                                keyboardAppearance="dark"
-                            />
-                            <Text style={styles.helperText}>{errors?.name && errors?.name?.message}</Text>
-                        </>
-                    )
+                    <>
+                        <TextInput
+                            style={styles.input}
+                            value={value}
+                            onChangeText={onChange}
+                            onBlur={onBlur}
+                            inputMode='text'
+                            keyboardAppearance="dark"
+                        />
+                        <Text style={styles.helperText}>{errors?.name && errors?.name?.message}</Text>
+                    </>
 
                 )}
             />
